@@ -23,8 +23,9 @@ public class InMemoryUserRepository implements UserRepository {
 				Arrays.asList(new User(1, "hungdev", passwordEncoder.encode("password"), UserRole.ADMIN),
 						new User(2, "cfundev", passwordEncoder.encode("password"), UserRole.USER)));
 
-	}
 
+	}
+	
 	@Override
 	public Optional<User> findByUsername(String username) {
 		for (User user : storedUsers) {
@@ -40,5 +41,7 @@ public class InMemoryUserRepository implements UserRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+
 
 }

@@ -30,7 +30,7 @@ body {
 </head>
 <body>
 	<h1>Home Page</h1>
-	<form action="/login" method="post">
+	<form action="/simple-social-network/auth/login" method="get">
 		<button type="submit" class=" btn">Login</button>
 	</form>
 </body>
