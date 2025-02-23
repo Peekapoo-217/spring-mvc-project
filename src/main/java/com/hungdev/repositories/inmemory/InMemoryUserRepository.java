@@ -22,8 +22,6 @@ public class InMemoryUserRepository implements UserRepository {
 		storedUsers = new ArrayList<>(
 				Arrays.asList(new User(1, "hungdev", passwordEncoder.encode("password"), UserRole.ADMIN),
 						new User(2, "cfundev", passwordEncoder.encode("password"), UserRole.USER)));
-
-
 	}
 	
 	@Override

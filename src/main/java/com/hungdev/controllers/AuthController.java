@@ -44,7 +44,13 @@
 
 package com.hungdev.controllers;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -54,6 +60,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+
+import com.hungdev.dtos.AuthenticateRequest;
 import com.hungdev.services.JwtService;
 
 @Controller
@@ -81,12 +89,14 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestParam String username,
+	public ResponseEntity<Map<String, String>> login(@RequestBody AuthenticateRequest request,
 
-			@RequestParam String password, HttpServletResponse response, Model model) {
+			HttpServletResponse response, Model model) {
 		try {
-			Authentication authentication = authenticationManager
-					.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			System.out.println("show me pls");
+			Authentication authentication = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+
 			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 			String token = jwtService.generateToken(userDetails);
 
@@ -94,12 +104,15 @@ public class AuthController {
 			jwtCookie.setHttpOnly(true);
 			jwtCookie.setMaxAge(60);
 			jwtCookie.setPath("/");
-			response.addCookie(jwtCookie);
 
-			return "redirect:/dashboard";
+			Map<String, String> responseBody = new HashMap<>();
+			responseBody.put("token", token);
+
+			response.addCookie(jwtCookie);
+			return ResponseEntity.ok(Collections.singletonMap("token", token));
 		} catch (Exception e) {
-			model.addAttribute("error", "Sai tài khoản hoặc mật khẩu!");
-			return "login";
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+					.body(Collections.singletonMap("error", "Sai tài khoản hoặc mật khẩu!"));
 		}
 	}
 

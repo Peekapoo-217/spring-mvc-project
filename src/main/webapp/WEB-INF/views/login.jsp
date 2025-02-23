@@ -10,9 +10,9 @@
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            const response = await fetch("/api/auth/authenticate", {
+            const response = await fetch("/simple-social-network/auth/login", {
                 method: "POST",
-                headers: {
+                headers: {	
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ username, password })
