@@ -14,15 +14,14 @@ public class Post {
 		super();
 	}
 
-	public Post(int id, String title, String body, int userId, PostStatus status) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.body = body;
-		this.userId = userId;
-		this.status = status;
-		this.createdAt = LocalDateTime.now();
-	}
+    public Post(int id, String title, String body, int userId, PostStatus status, LocalDateTime createdAt) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.userId = userId;
+        this.status = status;
+        this.createdAt = createdAt;
+    }
 
 	public int getId() {
 		return id;

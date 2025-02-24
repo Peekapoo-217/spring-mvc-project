@@ -1,6 +1,7 @@
 package com.hungdev.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,19 @@ public class UserService {
 		return userRepository.findPaged(pageIndex, pageSize);
 	}
 	
-	
+	 public Optional<User> findByUsername(String username) {
+	        return userRepository.findByUsername(username);
+	    }
+
+	    public void saveUser(User user) {
+	        userRepository.save(user);
+	    }
+
+	    public void updateUser(User user) {
+	        userRepository.update(user);
+	    }
+
+	    public void deleteUser(String username) {
+	        userRepository.delete(username);
+	    }
 }

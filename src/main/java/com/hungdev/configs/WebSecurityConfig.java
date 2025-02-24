@@ -88,9 +88,15 @@ public class WebSecurityConfig {
 		return authConfig.getAuthenticationManager();
 	}
 
+	/*
+	 * @Bean public PasswordEncoder passwordEncoder() { return new
+	 * BCryptPasswordEncoder(); }
+	 */
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+	    return NoOpPasswordEncoder.getInstance();
 	}
+
 
 }
