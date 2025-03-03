@@ -104,13 +104,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("JWT_TOKEN".equals(cookie.getName())) {
+            	System.out.println(cookie.getValue());
+                if ("jwt_token".equals(cookie.getName())) {
                     token = cookie.getValue();
                     break;
                 }
             }
         }
-
+        
         if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             String username = jwtService.extractUsernameFromToken(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -119,8 +120,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+               
             }
-            System.out.println(token);
         }
         
 

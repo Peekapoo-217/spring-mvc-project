@@ -98,7 +98,13 @@ public class AuthController {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		String token = jwtService.generateToken(userDetails);
 
-		response.setHeader("Authorization", "Bearer " + token);
+		Cookie jwtCookie = new Cookie("jwt_token", token);
+		jwtCookie.setPath("/"); 
+		jwtCookie.setHttpOnly(true); 
+		jwtCookie.setSecure(true); 
+		jwtCookie.setMaxAge(24 * 60 * 60); 
+		jwtCookie.setAttribute("SameSite", "None");
+		response.addCookie(jwtCookie);
 		return ResponseEntity.ok().header("Location", "/home").body(new AuthenticateResponse(token));
 	}
 

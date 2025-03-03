@@ -1,8 +1,17 @@
 package com.hungdev.entities;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 
-public class User {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class User implements UserDetails {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String username;
 	private String password;
@@ -61,5 +70,9 @@ public class User {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-	
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+	    return Collections.singletonList(() -> "ROLE_" + this.role.name());
+	}
 }

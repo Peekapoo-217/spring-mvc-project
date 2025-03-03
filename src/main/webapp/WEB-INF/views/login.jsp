@@ -8,7 +8,7 @@
 <title>Đăng nhập</title>
 <script>
         async function login(event) {
-            event.preventDefault(); // Ngăn form gửi request mặc định
+            event.preventDefault();
 
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
@@ -20,9 +20,7 @@
             });
 
             if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem("jwt_token", data.token); // Lưu JWT vào localStorage
-                window.location.href = "/home"; // Chuyển hướng đến trang chủ
+                window.location.href = "/simple-social-network/home";
             } else {
                 alert("Đăng nhập thất bại. Vui lòng kiểm tra lại tài khoản.");
             }
@@ -33,10 +31,9 @@
 	<h2>Log in</h2>
 	<form onsubmit="login(event)">
 		<label for="username">Username:</label> <input type="text"
-			id="username" required><br>
-		<br> <label for="password">Password:</label> <input
-			type="password" id="password" required><br>
-		<br>
+			id="username" required><br> <br> <label
+			for="password">Password:</label> <input type="password" id="password"
+			required><br> <br>
 
 		<button type="submit">Login</button>
 	</form>

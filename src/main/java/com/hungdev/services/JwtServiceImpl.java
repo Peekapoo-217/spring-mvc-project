@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.hungdev.configs.JwtConfig;
+import com.hungdev.entities.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -41,6 +42,7 @@ public class JwtServiceImpl implements JwtService {
 				.map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("Authorities", authorities);
+		claims.put("userId", ((User) userDetails).getId());
 		
 		return Jwts.builder()
 				.claims(claims)
