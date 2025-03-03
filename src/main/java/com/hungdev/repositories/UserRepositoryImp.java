@@ -101,14 +101,4 @@ public class UserRepositoryImp implements UserRepository {
 				UserRole.valueOf(rs.getString("role")));
 	}
 
-	/*
-	 * public static void main(String[] args) { DatabaseConfig dbConfig = new
-	 * DatabaseConfig(); DataSource dataSource = dbConfig.dataSource();
-	 * 
-	 * UserRepositoryImp userRepository = new UserRepositoryImp(dataSource);
-	 * 
-	 * List<User> users = userRepository.findPaged(0, 10); for (User user : users) {
-	 * System.out.println(user.getUsername()); } }
-	 */
-
 }

@@ -89,46 +89,19 @@ public class AuthController {
 		return "login";
 	}
 
-	/*
-	 * @PostMapping("/login") public ResponseEntity<Map<String, String>>
-
-	 * login(@RequestBody AuthenticateRequest request,
-	 * 
-	 * HttpServletResponse response, Model model) { try {
-	 * System.out.println("show me pls"); Authentication authentication =
-	 * authenticationManager.authenticate( new
-	 * UsernamePasswordAuthenticationToken(request.getUsername(),
-	 * request.getPassword()));
-	 * 
-	 * UserDetails userDetails = (UserDetails) authentication.getPrincipal(); String
-	 * token = jwtService.generateToken(userDetails);
-	 * 
-	 * Cookie jwtCookie = new Cookie("JWT_TOKEN", token);
-	 * jwtCookie.setHttpOnly(true); jwtCookie.setMaxAge(60); jwtCookie.setPath("/");
-	 * 
-	 * Map<String, String> responseBody = new HashMap<>(); responseBody.put("token",
-	 * token);
-	 * 
-	 * response.addCookie(jwtCookie); return
-	 * ResponseEntity.ok(Collections.singletonMap("token", token)); } catch
-	 * (Exception e) { return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-	 * .body(Collections.singletonMap("error", "Sai tài khoản hoặc mật khẩu!")); } }
-	 */
-	
-	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody AuthenticateRequest loginRequest, HttpServletResponse response) {
-	    Authentication authentication = authenticationManager.authenticate(
-	        new UsernamePasswordAuthenticationToken(
-	            loginRequest.getUsername(), loginRequest.getPassword())
-	    );
 
-	    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	    String token = jwtService.generateToken(userDetails);
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-	    response.setHeader("Authorization", "Bearer " + token);
-	    return ResponseEntity.ok().header("Location", "/home").body(new AuthenticateResponse(token));
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String token = jwtService.generateToken(userDetails);
+
+		response.setHeader("Authorization", "Bearer " + token);
+		return ResponseEntity.ok().header("Location", "/home").body(new AuthenticateResponse(token));
 	}
+
 	@GetMapping("/logout")
 	public String logout(HttpServletResponse response) {
 		Cookie jwtCookie = new Cookie("JWT_TOKEN", null);

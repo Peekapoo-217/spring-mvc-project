@@ -40,25 +40,6 @@ public class HomeController {
 	@Autowired
 	private AuthenticatedUserProvider authenticatedUserProvider;
 
-	/*
-	 * @GetMapping("/") public String home(HttpServletRequest request, Model model)
-	 * { String token = request.getHeader("Authorization");
-	 * 
-	 * if (token != null && token.startsWith("Bearer ")) { token =
-	 * token.substring(7); }
-	 * 
-	 * if (token != null && jwtService.validateToken(token)) {
-	 * 
-	 * String username = jwtService.extractUsernameFromToken(token);
-	 * 
-	 * int userId = Integer.parseInt(username);
-	 * 
-	 * List<Post> posts = postRepositoryImp.findPagedNewestByFollowings(userId, 0,
-	 * 10); model.addAttribute("posts", posts); }
-	 * 
-	 * return "home"; }
-	 */
-
 	@GetMapping("/home")
 	public String home(Model model) {
 		User currentUser = authenticatedUserProvider.getAuthenticatedUser();
@@ -78,11 +59,11 @@ public class HomeController {
 		return "home";
 	}
 
-	 @GetMapping("/")
-	    public String homeRedirect() {
-	        return "redirect:/home";
-	    }
-	 
+	@GetMapping("/")
+	public String homeRedirect() {
+		return "redirect:/home";
+	}
+
 	@GetMapping("/auth")
 	public String login() {
 		return "redirect:/auth";
