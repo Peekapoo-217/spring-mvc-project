@@ -13,7 +13,7 @@
  * 
  * @Repository public class InMemoryUserRepository implements UserRepository {
  * private static List<User> storedUsers;
- * 	
+ * 
  * public InMemoryUserRepository() { PasswordEncoder passwordEncoder = new
  * BCryptPasswordEncoder(); storedUsers = new ArrayList<>( Arrays.asList(new
  * User(1, "hungdev", passwordEncoder.encode("password"), UserRole.ADMIN), new
@@ -25,8 +25,6 @@
  * 
  * @Override public List<User> findPaged(int pageIndex, int pageSize) { // TODO
  * Auto-generated method stub return null; }
- * 
- * 
  * 
  * }
  */
