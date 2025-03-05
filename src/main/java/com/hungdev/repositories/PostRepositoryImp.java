@@ -34,7 +34,7 @@ public class PostRepositoryImp implements PostRepository {
 	@Override
 	public List<Post> findPagedNewestByFollowings(int userId, int pageIndex, int pageSize) {
 		List<Post> posts = new ArrayList<>();
-		String sql = "SELECT * FROM posts WHERE user_id IN (SELECT followee_id FROM follows WHERE follower_id = ?) ORDER BY created_at DESC LIMIT ? OFFSET ?";
+		String sql = "SELECT * FROM posts WHERE user_id IN (SELECT follower_id FROM follows WHERE follower_id = ?) ORDER BY created_at DESC LIMIT ? OFFSET ?";
 		int offset = pageIndex * pageSize;
 
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {

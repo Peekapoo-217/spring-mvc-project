@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.hungdev.entities.Post;
 import com.hungdev.entities.User;
-import com.hungdev.services.AuthenticatedUserProvider;
 import com.hungdev.services.PostService;
 import com.hungdev.services.UserService;
 
@@ -35,8 +34,6 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private AuthenticatedUserProvider authenticatedUserProvider;
 
 	@GetMapping("/home")
 	public String home(Model model) {
