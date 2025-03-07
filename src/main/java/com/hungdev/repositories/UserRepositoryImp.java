@@ -1,6 +1,5 @@
 package com.hungdev.repositories;
 
-import com.hungdev.configs.DatabaseConfig;
 import com.hungdev.entities.User;
 import com.hungdev.entities.UserRole;
 import java.sql.*;

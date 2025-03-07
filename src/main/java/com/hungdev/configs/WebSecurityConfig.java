@@ -68,20 +68,44 @@ public class WebSecurityConfig {
 		this.jwtRequestFilter = jwtRequestFilter;
 	}
 
+	/*
+	 * @Bean public SecurityFilterChain securityFilterChain(HttpSecurity http)
+	 * throws Exception { http.csrf(csrf -> csrf.disable())
+	 * .authorizeHttpRequests(auth -> auth.requestMatchers("/", "/login",
+	 * "/register").permitAll().anyRequest() .authenticated()) .formLogin(form ->
+	 * form.loginPage("/login").loginProcessingUrl("/Login").defaultSuccessUrl("/",
+	 * true) .permitAll()) .logout(logout ->
+	 * logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout").permitAll())
+	 * .sessionManagement(session ->
+	 * session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
+	 * 
+	 * http.addFilterBefore(jwtRequestFilter,
+	 * UsernamePasswordAuthenticationFilter.class);
+	 * 
+	 * return http.build(); }
+	 */
+	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/", "/login", "/register").permitAll().anyRequest()
-						.authenticated())
-				.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/Login").defaultSuccessUrl("/", true)
-						.permitAll())
-				.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout").permitAll())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
+	    http.csrf(csrf -> csrf.disable())
+	            .authorizeHttpRequests(auth -> auth
+	                    .requestMatchers("/", "/login", "/register").permitAll()
+	                    .anyRequest().authenticated())
+	            .formLogin(form -> form
+	                    .loginPage("/login") 
+	                    .defaultSuccessUrl("/", true)
+	                    .permitAll())
+	            .logout(logout -> logout
+	                    .logoutUrl("/logout")
+	                    .logoutSuccessUrl("/login?logout")
+	                    .permitAll())
+	            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
 
-		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+	    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
-		return http.build();
+	    return http.build();
 	}
+
 
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
