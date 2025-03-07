@@ -18,9 +18,10 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 	
-	public List<User> findPaged(int pageIndex, int pageSize) {
-		return userRepository.findPaged(pageIndex, pageSize);
-	}
+	
+	  public List<User> findPaged(int pageIndex, int pageSize, int userId) { return
+	  userRepository.findPaged(pageIndex, pageSize, userId); }
+	 
 	
 	 public Optional<User> findByUsername(String username) {
 	        return userRepository.findByUsername(username);

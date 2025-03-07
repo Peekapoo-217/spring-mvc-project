@@ -9,7 +9,7 @@ import com.hungdev.entities.User;
 
 @Repository
 public interface UserRepository {
-	List<User> findPaged(int pageIndex, int pageSize);
+	List<User> findPaged(int pageIndex, int pageSize, int userId);
 	Optional<User> findByUsername(String username);
 	void save(User user);
     void update(User user);

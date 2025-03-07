@@ -55,7 +55,7 @@ public class HomeController {
 		int pageSize = 10;
 
 		List<Post> posts = postService.findPagedNewestByFollowings(userId, pageIndex, pageSize);
-		List<User> users = userService.findPaged(pageIndex, pageSize);
+		List<User> users = userService.findPaged(pageIndex, pageSize, userId);
 		List<Integer> followingIds = followService.getFollowingIds(userId);
 		
 		model.addAttribute("posts", posts);

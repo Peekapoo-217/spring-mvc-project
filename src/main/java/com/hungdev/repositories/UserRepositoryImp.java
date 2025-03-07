@@ -22,15 +22,18 @@ public class UserRepositoryImp implements UserRepository {
 		this.dataSource = dataSource;
 	}
 
+	
 	@Override
-	public List<User> findPaged(int pageIndex, int pageSize) {
+	public List<User> findPaged(int pageIndex, int pageSize, int userId) {
 		List<User> users = new ArrayList<>();
-		String sql = "SELECT * FROM users LIMIT ? OFFSET ?";
+		/* String sql = "SELECT * FROM users LIMIT ? OFFSET ?"; */
+		 String sql = "SELECT * FROM users WHERE id <> ? LIMIT ? OFFSET ?"; 
 		int offset = pageIndex * pageSize;
 
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, pageSize);
-			pstmt.setInt(2, offset);
+			pstmt.setInt(1, userId);
+			pstmt.setInt(2, pageSize);
+			pstmt.setInt(3, offset);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					users.add(mapUser(rs));
