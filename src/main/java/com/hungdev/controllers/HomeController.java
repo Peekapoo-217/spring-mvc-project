@@ -57,7 +57,7 @@ public class HomeController {
 		List<Post> posts = postService.findPagedNewestByFollowings(userId, pageIndex, pageSize);
 		List<User> users = userService.findPaged(pageIndex, pageSize, userId);
 		List<Integer> followingIds = followService.getFollowingIds(userId);
-		
+
 		model.addAttribute("posts", posts);
 		model.addAttribute("users", users);
 		model.addAttribute("followingIds", followingIds);
@@ -65,8 +65,8 @@ public class HomeController {
 	}
 
 	@GetMapping("/")
-	public String homeRedirect() {
-		return "redirect:/home";
+	public String redirectToLogin() {
+		return "redirect:/auth/login"; // Khi chạy ứng dụng, chuyển hướng đến trang login
 	}
 
 	@GetMapping("/auth")

@@ -30,6 +30,8 @@ public class FollowService {
 	}
 	
     public List<Integer> getFollowingIds(int userId) {
+    	List<Integer> following = followRepository.getFollowingIds(userId);
+    	following.removeIf(id -> id == userId); // Xóa chính mình khỏi danh sác
         return followRepository.getFollowingIds(userId);
     }
 }
