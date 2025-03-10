@@ -9,6 +9,7 @@ package com.hungdev.repositories;
 
 import com.hungdev.entities.Post;
 import com.hungdev.entities.PostStatus;
+import com.hungdev.entities.UserRole;
 
 import java.time.LocalDateTime;
 import java.sql.*;
@@ -34,7 +35,7 @@ public class PostRepositoryImp implements PostRepository {
 	@Override
 	public List<Post> findPagedNewestByFollowings(int userId, int pageIndex, int pageSize) {
 		List<Post> posts = new ArrayList<>();
-		String sql = "SELECT * FROM posts WHERE user_id IN (SELECT follower_id FROM follows WHERE follower_id = ?) ORDER BY created_at DESC LIMIT ? OFFSET ?";
+		String sql = "SELECT * FROM posts WHERE user_id IN (SELECT following_id FROM follows WHERE follower_id = ?) AND status <> 'DRAFTED' ORDER BY created_at DESC LIMIT ? OFFSET ?";
 		int offset = pageIndex * pageSize;
 
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -133,5 +134,27 @@ public class PostRepositoryImp implements PostRepository {
 		return new Post(rs.getInt("id"), rs.getString("title"), rs.getString("body"), rs.getInt("user_id"), status,
 				rs.getTimestamp("created_at") != null ? rs.getTimestamp("created_at").toLocalDateTime()
 						: LocalDateTime.now());
+	}
+
+	@Override
+	public List<Post> search(UserRole role, String query) {
+		String selectPart = "SELECT * FROM posts";
+		String searchConditionPart = "title like '%" + query + "%'";
+		String roleConditionPart = "status <> 'DRAFTED'";
+		String finalQuery = selectPart + " WHERE " + searchConditionPart;
+		if (role == UserRole.USER) {
+			finalQuery += " AND " + roleConditionPart;
+		}
+		 List<Post> posts = new ArrayList<>();
+		 try (Connection conn = dataSource.getConnection();
+		         Statement stmt = conn.createStatement();
+		         ResultSet rs = stmt.executeQuery(finalQuery)) {
+		        while (rs.next()) {
+		            posts.add(mapPost(rs));
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return posts;
 	}
 }

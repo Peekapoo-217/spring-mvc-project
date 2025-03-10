@@ -9,7 +9,7 @@ public class Post {
 	private int userId;
 	private PostStatus status;
 	private LocalDateTime createdAt;
-
+    private String authorName;
 	public Post() {
 		super();
 	}
@@ -23,6 +23,14 @@ public class Post {
         this.createdAt = createdAt;
     }
 
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+    
 	public int getId() {
 		return id;
 	}

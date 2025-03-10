@@ -44,12 +44,8 @@
 
 package com.hungdev.controllers;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -57,11 +53,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
+
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import com.hungdev.dtos.AuthenticateRequest;
 import com.hungdev.dtos.AuthenticateResponse;
@@ -109,17 +104,17 @@ public class AuthController {
 		response.addCookie(jwtCookie);
 		return ResponseEntity.ok().header("Location", "/home").body(new AuthenticateResponse(token));
 	}
-	
+
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
-	    Cookie jwtCookie = new Cookie("jwt_token", null);
-	    jwtCookie.setHttpOnly(true);
-	    jwtCookie.setMaxAge(0);
-	    jwtCookie.setPath("/");
-	    response.addCookie(jwtCookie);
-	    
-	    request.getSession().invalidate();
-	    return "redirect:/auth/login";
+		Cookie jwtCookie = new Cookie("jwt_token", null);
+		jwtCookie.setHttpOnly(true);
+		jwtCookie.setMaxAge(0);
+		jwtCookie.setPath("/");
+		response.addCookie(jwtCookie);
+
+		request.getSession().invalidate();
+		return "redirect:/auth/login";
 	}
 
 }

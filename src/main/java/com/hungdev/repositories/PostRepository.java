@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.hungdev.entities.Post;
+import com.hungdev.entities.PostStatus;
+import com.hungdev.entities.UserRole;
 
 @Repository
 public interface PostRepository {
@@ -15,4 +17,5 @@ public interface PostRepository {
 	void add(Post post);
 	void update(Post post);
 	void delete(int id);
+	List<Post> search(UserRole role, String query);
 }

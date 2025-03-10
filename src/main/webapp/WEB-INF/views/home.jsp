@@ -50,12 +50,13 @@ text-primary {rgb (0 0 0) !important;
 				Simple Social Network</a>
 
 			<!-- Thanh tìm kiếm -->
-			<form action="<%=request.getContextPath()%>/home/search"
-				method="get" class="d-flex mx-auto">
+			<form action="<%=request.getContextPath()%>/home" method="get" class="d-flex mx-auto">
 				<input type="text" name="keyword" class="form-control me-2"
-					placeholder=" Tìm kiếm ..." required>
+					placeholder="Tìm kiếm bài viết..." required>
 				<button type="submit" class="btn btn-primary">Tìm</button>
 			</form>
+
+
 
 			<!-- Nút Đăng xuất -->
 			<div class="d-flex align-items-center">
@@ -118,8 +119,7 @@ text-primary {rgb (0 0 0) !important;
 			<div class="col-md-9">
 				<!-- Form Đăng Bài -->
 				<div class="card mb-4">
-					<div class="card-header bg-primary text-white"> Đăng bài
-						mới</div>
+					<div class="card-header bg-primary text-white">Đăng bài mới</div>
 					<div class="card-body">
 						<form action="<%=request.getContextPath()%>/post/create"
 							method="post">
@@ -153,7 +153,7 @@ text-primary {rgb (0 0 0) !important;
 								<div class="d-flex align-items-center mb-2">
 									<img src="<%=request.getContextPath()%>/resources/th.jpg"
 										class="avatar me-2" alt="Avatar">
-									<%-- 									<div>
+									<%-- 									<div>	
 										<h6 class="mb-0"><%= post.getUser().getUsername() %></h6>
 										<small class="text-muted"><%= post.getCreatedAt() %></small>
 									</div> --%>

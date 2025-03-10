@@ -21,7 +21,7 @@ public class UserRepositoryImp implements UserRepository {
 	public UserRepositoryImp(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-
+	
 	
 	@Override
 	public List<User> findPaged(int pageIndex, int pageSize, int userId) {
