@@ -24,7 +24,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark">
 		<div class="container">
-			<a class="navbar-brand" href="<%=request.getContextPath()%>/home">🏠
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/home">
 				Simple Social</a>
 			<form action="<%=request.getContextPath()%>/home" method="get"
 				class="d-flex search-bar">
@@ -93,14 +93,21 @@
 				List<Post> postList = (List<Post>) request.getAttribute("posts");
 				if (postList != null) {
 					for (Post post : postList) {
+						String authorName = "hungdev"; // Giá trị mặc định nếu không tìm thấy
+						for (User user : userList) {
+					if (user.getId() == post.getUserId()) {
+						authorName = user.getUsername();
+						break;
+					}
+						}
 				%>
 				<div class="card post-card mb-3">
 					<div class="card-body">
-						<%--                         <div class="d-flex align-items-center mb-2">
-                            <img src="<%=request.getContextPath()%>/resources/th.jpg" class="avatar me-2" alt="Avatar">
-                            <h6 class="mb-0"><%= post.getUser().getUsername() %></h6>
-                            <small class="text-muted ms-2"><%= post.getCreatedAt() %></small>
-                        </div> --%>
+						<div class="d-flex align-items-center mb-2">
+							<img src="<%=request.getContextPath()%>/resources/images/th.jpg"
+								class="avatar me-2" alt="Avatar"> <span class="me-2"><%=authorName%></span>
+							<small class="text-muted ms-2"><%=post.getCreatedAt()%></small>
+						</div>
 						<h5 class="card-title"><%=post.getTitle()%></h5>
 						<p class="card-text"><%=post.getBody()%></p>
 						<div class="d-flex justify-content-between">
