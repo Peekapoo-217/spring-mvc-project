@@ -1,0 +1,122 @@
+/* /* 
+ Tổng thể
+body {
+    background-color: #f0f2f5;
+    font-family: Arial, sans-serif;
+}
+
+Navbar
+.navbar {
+    background-color: #1877f2 !important;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+Bố cục bài đăng
+.post-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+.post-card:hover {
+    transform: scale(1.02);
+}
+
+Avatar
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+Nội dung bài đăng
+.post-content {
+    font-size: 16px;
+    color: #333;
+}
+
+Nút tương tác
+.interaction-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: #555;
+    transition: 0.3s;
+}
+.interaction-btn:hover {
+    color: #1877f2;
+    transform: scale(1.1);
+}
+
+Danh sách người dùng
+.user-list {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+ 
+
+	  */
+	  body {
+        background-color: #eef1f6;
+        font-family: 'Arial', sans-serif;
+    }
+    .navbar {
+        background: linear-gradient(45deg, #007bff, #6610f2);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+    .navbar-brand {
+        color: white !important;
+        font-weight: bold;
+    }
+    .search-bar {
+        width: 100%;
+        max-width: 400px;
+    }
+    .sidebar {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .post-card {
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease-in-out;
+    }
+    .post-card:hover {
+        transform: scale(1.02);
+    }
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .btn-hover:hover {
+        transform: scale(1.1);
+        transition: 0.2s;
+    }
