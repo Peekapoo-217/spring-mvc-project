@@ -21,13 +21,11 @@ public class UserRepositoryImp implements UserRepository {
 	public UserRepositoryImp(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	
-	
+
 	@Override
 	public List<User> findPaged(int pageIndex, int pageSize, int userId) {
 		List<User> users = new ArrayList<>();
-		/* String sql = "SELECT * FROM users LIMIT ? OFFSET ?"; */
-		 String sql = "SELECT * FROM users WHERE id <> ? LIMIT ? OFFSET ?"; 
+		String sql = "SELECT * FROM users WHERE id <> ? LIMIT ? OFFSET ?";
 		int offset = pageIndex * pageSize;
 
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {

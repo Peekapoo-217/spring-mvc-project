@@ -25,7 +25,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark">
 		<div class="container">
 			<a class="navbar-brand" href="<%=request.getContextPath()%>/home">
-				Simple Social</a>
+				Simple Social Network</a>
 			<form action="<%=request.getContextPath()%>/home" method="get"
 				class="d-flex search-bar">
 				<input type="text" name="keyword" class="form-control me-2"
@@ -93,7 +93,7 @@
 				List<Post> postList = (List<Post>) request.getAttribute("posts");
 				if (postList != null) {
 					for (Post post : postList) {
-						String authorName = "hungdev"; // Giá trị mặc định nếu không tìm thấy
+						String authorName = "hungdev";
 						for (User user : userList) {
 					if (user.getId() == post.getUserId()) {
 						authorName = user.getUsername();
@@ -105,11 +105,15 @@
 					<div class="card-body">
 						<div class="d-flex align-items-center mb-2">
 							<img src="<%=request.getContextPath()%>/resources/images/th.jpg"
-								class="avatar me-2" alt="Avatar"> <span class="me-2"><%=authorName%></span>
-							<small class="text-muted ms-2"><%=post.getCreatedAt()%></small>
+								class="avatar me-2" alt="Avatar"> <span
+								class="me-2 text-primary"><%=authorName%></span> <small
+								class="text-muted ms-2"><%=post.getCreatedAt()%></small>
 						</div>
-						<h5 class="card-title"><%=post.getTitle()%></h5>
-						<p class="card-text"><%=post.getBody()%></p>
+						<h5 class="card-title text-dark"><%=post.getTitle()%></h5>
+						<p class="card-text p-3 bg-light rounded shadow-sm"
+							style="font-size: 1.1rem; font-weight: 500; line-height: 1.6;">
+							<%=post.getBody()%>
+						</p>
 						<div class="d-flex justify-content-between">
 							<button class="btn btn-outline-primary btn-sm btn-hover">
 								<i class="bi bi-hand-thumbs-up"></i> Thích
@@ -120,6 +124,7 @@
 						</div>
 					</div>
 				</div>
+
 				<%
 				}
 				}

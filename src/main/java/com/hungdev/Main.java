@@ -20,15 +20,17 @@ public class Main {
 		UserRepositoryImp userRepository = new UserRepositoryImp(dataSource);
 		UserService userService = new UserService(userRepository);
 
-		PostRepositoryImp postsRep = new PostRepositoryImp(dataSource);
-		/*
-		 * List<User> users = userService.findPaged(0, 10); for (User user : users) {
-		 * System.out.println(user.getUsername()); }
-		 * 
-		 * List<Post> posts = postsRep.findPagedNewestByFollowings(0, 0, 0);
-		 * 
-		 * for (Post post : posts) { System.out.println(post.getBody()); }
-		 */
+		
+		  PostRepositoryImp postsRep = new PostRepositoryImp(dataSource);
+		  
+		  List<User> users = userService.findPaged(0, 10,1); for (User user : users) {
+		  System.out.println(user.getUsername()); }
+		  
+		  List<Post> posts = postsRep.findPagedNewestByFollowings(0, 0, 0);
+		  
+		  for (Post post : posts) { System.out.println(post.getBody()); }
+		 
+		 
 
 		dbConfig.closeConnection(null);
 

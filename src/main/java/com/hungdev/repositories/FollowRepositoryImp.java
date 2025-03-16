@@ -55,22 +55,21 @@ public class FollowRepositoryImp implements FollowRepository {
 		}
 		return false;
 	}
-	
-	public List<Integer> getFollowingIds(int userId) {
-        List<Integer> followingIds = new ArrayList();
-        String sql = "SELECT following_id FROM follows WHERE follower_id = ?";
 
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                followingIds.add(rs.getInt("following_id"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return followingIds;
-    }
+	public List<Integer> getFollowingIds(int userId) {
+		List<Integer> followingIds = new ArrayList();
+		String sql = "SELECT following_id FROM follows WHERE follower_id = ?";
+
+		try (Connection conn = dataSource.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setInt(1, userId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				followingIds.add(rs.getInt("following_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return followingIds;
+	}
 
 }

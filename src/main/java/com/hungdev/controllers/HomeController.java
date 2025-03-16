@@ -4,10 +4,8 @@ package com.hungdev.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +18,6 @@ import com.hungdev.entities.UserRole;
 import com.hungdev.services.FollowService;
 import com.hungdev.services.PostService;
 import com.hungdev.services.UserService;
-import com.mysql.cj.util.StringUtils;
 
 @Controller
 public class HomeController {
@@ -34,15 +31,15 @@ public class HomeController {
 	private FollowService followService;
 
 	@GetMapping("/home")
-	public String home(@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model, @AuthenticationPrincipal UserDetails userDetails ) {
+	public String home(@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model,
+			@AuthenticationPrincipal UserDetails userDetails) {
 		if (userDetails == null) {
 			return "redirect:/auth/login";
 		}
-		
+
 		int userId = ((User) userDetails).getId();
-		 GrantedAuthority grantedAuthority = (GrantedAuthority) userDetails.getAuthorities().toArray()[0];
-		  String role = grantedAuthority.getAuthority();
-		  
+		GrantedAuthority grantedAuthority = (GrantedAuthority) userDetails.getAuthorities().toArray()[0];
+		String role = grantedAuthority.getAuthority();
 
 		if (userId == -1) {
 			return "redirect:/auth/login";
@@ -50,19 +47,19 @@ public class HomeController {
 
 		int pageIndex = 0;
 		int pageSize = 10;
-		
+
 		List<Post> posts = null;
-		
+
 		if (!keyword.equals("")) {
-			 if (role.equals("ROLE_ADMIN")) {
-				 posts = postService.searchByRole(UserRole.ADMIN, keyword);
-			  } else {
-				 posts = postService.searchByRole(UserRole.USER, keyword);
-			  }
+			if (role.equals("ROLE_ADMIN")) {
+				posts = postService.searchByRole(UserRole.ADMIN, keyword);
+			} else {
+				posts = postService.searchByRole(UserRole.USER, keyword);
+			}
 		} else {
 			posts = postService.findPagedNewestByFollowings(userId, pageIndex, pageSize);
 		}
-		
+
 		List<User> users = userService.findPaged(pageIndex, pageSize, userId);
 		List<Integer> followingIds = followService.getFollowingIds(userId);
 
@@ -72,22 +69,21 @@ public class HomeController {
 		return "home";
 	}
 
-	
-	  @GetMapping("/search") 
-	  public String search(@RequestParam("keyword") String keyword, Model model, @AuthenticationPrincipal UserDetails userDetails) {
-		  GrantedAuthority grantedAuthority = (GrantedAuthority) userDetails.getAuthorities().toArray()[0];
-		  String role = grantedAuthority.getAuthority();
-		  System.out.println(role);
-		  
-		  if (role.equals("ROLE_ADMIN")) {
-			  postService.searchByRole(UserRole.ADMIN, keyword);
-		  } else {
-			  postService.searchByRole(UserRole.USER, keyword);
-		  }
-	  
-		  return "home";
-	  }
-	 
+	@GetMapping("/search")
+	public String search(@RequestParam("keyword") String keyword, Model model,
+			@AuthenticationPrincipal UserDetails userDetails) {
+		GrantedAuthority grantedAuthority = (GrantedAuthority) userDetails.getAuthorities().toArray()[0];
+		String role = grantedAuthority.getAuthority();
+		System.out.println(role);
+
+		if (role.equals("ROLE_ADMIN")) {
+			postService.searchByRole(UserRole.ADMIN, keyword);
+		} else {
+			postService.searchByRole(UserRole.USER, keyword);
+		}
+
+		return "home";
+	}
 
 	@GetMapping("/")
 	public String redirectToLogin() {

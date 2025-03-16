@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hungdev.repositories.FollowRepository;
-import com.hungdev.repositories.FollowRepositoryImp;
 
 @Service
 public class FollowService {
@@ -28,10 +27,10 @@ public class FollowService {
 	public boolean isFollowing(int followerId, int followingId) {
 		return followRepository.isFollowing(followerId, followingId);
 	}
-	
-    public List<Integer> getFollowingIds(int userId) {
-    	List<Integer> following = followRepository.getFollowingIds(userId);
-    	following.removeIf(id -> id == userId); // Xóa chính mình khỏi danh sác
-        return followRepository.getFollowingIds(userId);
-    }
+
+	public List<Integer> getFollowingIds(int userId) {
+		List<Integer> following = followRepository.getFollowingIds(userId);
+		following.removeIf(id -> id == userId); // Xóa chính mình khỏi danh sác
+		return followRepository.getFollowingIds(userId);
+	}
 }
