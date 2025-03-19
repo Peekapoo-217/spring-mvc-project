@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Đăng nhập</title>
+<title>Login</title>
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -46,6 +46,17 @@ h2 {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	font-size: 16px;
+}
+.signup-link {
+    display: block;
+    margin-top: 20px; /* Khoảng cách đủ thoáng */
+    color: #28a745;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
 }
 
 .btn-login {
@@ -92,7 +103,7 @@ h2 {
 </head>
 <body>
 	<div class="login-container">
-		<h2>Đăng nhập</h2>
+		<h2>Login</h2>
 		<form onsubmit="login(event)">
 			<div class="input-group">
 				<label for="username">Username:</label> <input type="text"
@@ -104,6 +115,8 @@ h2 {
 			</div>
 			<button type="submit" class="btn-login">Login</button>
 		</form>
+		
+		<a class="signup-link" href="/simple-social-network/auth/signup">Don't have an account? Sign up here</a>
 	</div>
 </body>
 </html>

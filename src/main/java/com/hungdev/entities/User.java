@@ -24,6 +24,12 @@ public class User implements UserDetails {
 		this.createdAt = LocalDateTime.now();
 	}
 
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+		createdAt = LocalDateTime.now();
+	}
+
 	public User() {
 		super();
 	}

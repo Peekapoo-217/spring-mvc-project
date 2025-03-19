@@ -53,14 +53,14 @@ public class WebSecurityConfig {
 		return authConfig.getAuthenticationManager();
 	}
 
-	/*
-	 * @Bean public PasswordEncoder passwordEncoder() { return new
-	 * BCryptPasswordEncoder(); }
-	 */
-
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
+		return new BCryptPasswordEncoder();
 	}
+
+	/*
+	 * @Bean public PasswordEncoder passwordEncoder() { return
+	 * NoOpPasswordEncoder.getInstance(); }
+	 */
 
 }
