@@ -1,9 +1,11 @@
 package com.hungdev.configs;
 
-import jakarta.servlet.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
+
 
 @Configuration
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {

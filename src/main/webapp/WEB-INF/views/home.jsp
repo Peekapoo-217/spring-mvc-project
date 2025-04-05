@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
@@ -95,7 +93,7 @@
 					for (Post post : postList) {
 						String authorName = "hungdev";
 						for (User user : userList) {
-					if (user.getId() == post.getUserId()) {
+					if (user.getId() == post.getUser().getId()) {
 						authorName = user.getUsername();
 						break;
 					}
@@ -134,3 +132,101 @@
 	</div>
 </body>
 </html>
+
+
+<%--  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Social Network</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/homepage.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
+                Simple Social Network
+            </a>
+            <form action="${pageContext.request.contextPath}/home" method="get" class="d-flex search-bar">
+                <input type="text" name="keyword" class="form-control me-2" placeholder="Tìm kiếm..." required>
+                <button type="submit" class="btn btn-light btn-hover">🔍</button>
+            </form>
+            <a href="${pageContext.request.contextPath}/auth/logout" class="btn btn-danger btn-sm btn-hover">
+                <i class="bi bi-box-arrow-right"></i> Đăng xuất
+            </a>
+        </div>
+    </nav>
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            <!-- Sidebar người dùng -->
+            <div class="col-md-3">
+                <div class="sidebar">
+                    <h4 class="text-primary">Người dùng</h4>
+                    <div class="list-group">
+                        <c:forEach var="user" items="${users}">
+                            <div class="list-group-item d-flex align-items-center justify-content-between">
+                                <form action="${followingIds.contains(user.id) ? '/simple-social-network/follow/unfollow/' : '/simple-social-network/follow/'}" method="post">
+                                    <input type="hidden" name="userId" value="${user.id}" />
+                                    <span>${user.username}</span>
+                                    <button type="submit" class="btn btn-sm ${followingIds.contains(user.id) ? 'btn-outline-danger' : 'btn-outline-primary'} btn-hover">
+                                        <i class="bi ${followingIds.contains(user.id) ? 'bi-person-dash' : 'bi-person-plus'}"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+            <!-- Feed bài viết -->
+            <div class="col-md-6 feed">
+                <div class="card mb-4 post-card">
+                    <h5 class="card-header bg-primary text-white">Đăng bài mới</h5>
+                    <div class="card-body">
+                        <form action="${pageContext.request.contextPath}/post/create" method="post">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" name="title" placeholder="Tiêu đề" required>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" name="content" rows="3" placeholder="Nội dung" required></textarea>
+                            </div>
+                            <button class="btn btn-success btn-hover">Đăng bài</button>
+                        </form>
+                    </div>
+                </div>
+                <c:forEach var="post" items="${posts}">
+                    <!-- Giả sử authorName đã được tính toán sẵn trong controller; nếu không, bạn có thể tính toán trong view -->
+                    <div class="card post-card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-2">
+                                <img src="${pageContext.request.contextPath}/resources/images/th.jpg" class="avatar me-2" alt="Avatar">
+                                <span class="me-2 text-primary">
+                                    ${post.userId == currentUserId ? currentUser.username : post.authorUsername}
+                                </span>
+                                <small class="text-muted ms-2">${post.createdAt}</small>
+                            </div>
+                            <h5 class="card-title text-dark">${post.title}</h5>
+                            <p class="card-text p-3 bg-light rounded shadow-sm" style="font-size: 1.1rem; font-weight: 500; line-height: 1.6;">
+                                ${post.body}
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-outline-primary btn-sm btn-hover">
+                                    <i class="bi bi-hand-thumbs-up"></i> Thích
+                                </button>
+                                <button class="btn btn-outline-secondary btn-sm btn-hover">
+                                    <i class="bi bi-chat-dots"></i> Bình luận
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+</body>
+</html> --%>
+ 
