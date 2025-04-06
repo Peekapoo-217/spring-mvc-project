@@ -32,7 +32,8 @@ public class Main {
 						user.getId(), user.getUsername(), user.getRole());
 			}
 		} finally {
-			context.close();
+		    context.close();
+		    com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.checkedShutdown();
 		}
 	}
 }

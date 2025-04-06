@@ -25,9 +25,9 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		return new String[] { "/" };
 	}
 
-	@Override
-	protected Filter[] getServletFilters() {
-		return new Filter[] { new DelegatingFilterProxy("jwtRequestFilter") };
-	}
+	/*
+	 * @Override protected Filter[] getServletFilters() { return new Filter[] { new
+	 * DelegatingFilterProxy("jwtRequestFilter") }; }
+	 */
 
 }
