@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 19, 2025 at 10:05 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Apr 20, 2025 at 08:44 AM
+-- Server version: 8.4.3
+-- PHP Version: 8.3.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `follows` (
-  `follower_id` int(11) NOT NULL,
-  `following_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `follower_id` int NOT NULL,
+  `following_id` int NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -38,7 +38,10 @@ CREATE TABLE `follows` (
 --
 
 INSERT INTO `follows` (`follower_id`, `following_id`, `created_at`) VALUES
-(1, 1, '2025-03-19 08:33:04');
+(1, 1, '2025-03-19 08:33:04'),
+(2, 1, '2025-04-20 07:49:52'),
+(2, 5, '2025-04-20 07:49:22'),
+(2, 6, '2025-04-20 07:49:23');
 
 -- --------------------------------------------------------
 
@@ -47,12 +50,12 @@ INSERT INTO `follows` (`follower_id`, `following_id`, `created_at`) VALUES
 --
 
 CREATE TABLE `posts` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `body` text NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `status` enum('DRAFTED','POSTED') NOT NULL DEFAULT 'DRAFTED',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `body` text COLLATE utf8mb4_general_ci NOT NULL,
+  `user_id` int NOT NULL,
+  `status` enum('DRAFTED','POSTED') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'DRAFTED',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -65,7 +68,17 @@ INSERT INTO `posts` (`id`, `title`, `body`, `user_id`, `status`, `created_at`) V
 (3, 'Mẹo nhỏ giúp tập trung', 'Tắt thông báo điện thoại và đặt ra khung giờ làm việc không bị gián đoạn. Bạn sẽ thấy năng suất hơn!', 2, 'POSTED', '2025-03-19 08:32:46'),
 (4, 'Hôm nay bạn đã cười chưa?', 'Dù bận rộn thế nào, đừng quên nở nụ cười. Một nụ cười có thể thay đổi cả ngày của bạn đấy!', 2, 'POSTED', '2025-03-19 08:32:46'),
 (5, 'Sách hay nên đọc', 'Nếu bạn đang tìm sách, tôi khuyên bạn nên thử đọc \"7 Thói quen của người thành đạt\" – rất bổ ích!', 2, 'POSTED', '2025-03-19 08:32:46'),
-(6, 'Quote hay', '“Hành trình ngàn dặm bắt đầu từ một bước chân.” – Lao Tzu', 2, 'POSTED', '2025-03-19 08:32:46');
+(6, 'Quote hay', '“Hành trình ngàn dặm bắt đầu từ một bước chân.” – Lao Tzu', 2, 'DRAFTED', '2025-03-19 08:32:46'),
+(7, 'Du lịch Đà Lạt', 'Bài viết chia sẻ kinh nghiệm du lịch Đà Lạt 3 ngày 2 đêm.', 3, 'POSTED', '2025-04-20 08:01:45'),
+(8, 'Học lập trình Java', 'Hướng dẫn học lập trình Java cho người mới bắt đầu.', 3, 'POSTED', '2025-04-20 08:01:45'),
+(9, 'Ẩm thực miền Trung', 'Khám phá những món ăn đặc sắc miền Trung Việt Nam.', 3, 'DRAFTED', '2025-04-20 08:01:45'),
+(10, 'Review sách hay', 'Giới thiệu một số cuốn sách nên đọc trong năm nay.', 3, 'POSTED', '2025-04-20 08:01:45'),
+(11, 'Kỹ năng mềm cho sinh viên', 'Tầm quan trọng của kỹ năng mềm trong môi trường đại học.', 3, 'DRAFTED', '2025-04-20 08:01:45'),
+(12, 'Hành trình khám phá Tây Bắc', 'Chia sẻ kinh nghiệm đi phượt Tây Bắc mùa lúa chín.', 4, 'POSTED', '2025-04-20 08:03:43'),
+(13, 'Lập trình Web cơ bản', 'Giới thiệu các bước xây dựng một website đơn giản bằng HTML, CSS.', 4, 'POSTED', '2025-04-20 08:03:43'),
+(14, 'Tự học tiếng Anh giao tiếp', 'Các mẹo đơn giản giúp bạn luyện tiếng Anh mỗi ngày.', 4, 'POSTED', '2025-04-20 08:03:43'),
+(15, 'Sống xanh mỗi ngày', 'Gợi ý những hành động nhỏ giúp bảo vệ môi trường.', 4, 'POSTED', '2025-04-20 08:03:43'),
+(16, 'Phân biệt AI và Machine Learning', 'Giải thích ngắn gọn sự khác nhau giữa trí tuệ nhân tạo và học máy.', 4, 'POSTED', '2025-04-20 08:03:43');
 
 -- --------------------------------------------------------
 
@@ -74,11 +87,11 @@ INSERT INTO `posts` (`id`, `title`, `body`, `user_id`, `status`, `created_at`) V
 --
 
 CREATE TABLE `users` (
-  `id` int(20) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` enum('ADMIN','USER') NOT NULL DEFAULT 'USER',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `role` enum('ADMIN','USER') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'USER',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -90,7 +103,8 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`, `created_at`) VALUES
 (2, 'caubelauga', '$2a$10$ZYmp6NRHdYnv/RURBCF66eumfJ4EyHOtTFbR7XgqAMy06kz6c.3c.', 'USER', '2025-03-19 08:29:18'),
 (3, 'danh', '$2a$10$FKy4kPCyfbVSf7JuhwailOpPEZQ1x2k2NVnaVn.eLQeZYHkWfiJqS', 'USER', '2025-03-19 08:47:19'),
 (4, 'hongnhung', '$2a$10$NQA4RtDRKuXIo7h4IFv0n.oM/.fjSC7sxYc/rdn9wDeVpcCRkNzxu', 'USER', '2025-03-19 09:02:03'),
-(5, 'huynh', '$2a$10$DjmahA55GGgXaaQMpcaP/OG3SF2lPjWkfydJJUhPm3/GewFA.jdN2', 'USER', '2025-03-19 09:02:10');
+(5, 'huynh', '$2a$10$DjmahA55GGgXaaQMpcaP/OG3SF2lPjWkfydJJUhPm3/GewFA.jdN2', 'USER', '2025-03-19 09:02:10'),
+(6, 'user', '123', 'USER', '2025-04-14 12:23:35');
 
 --
 -- Indexes for dumped tables
@@ -125,13 +139,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

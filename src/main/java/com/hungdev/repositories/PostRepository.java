@@ -16,5 +16,5 @@ public interface PostRepository {
 	void add(Post post);
 	void update(Post post);
 	void delete(int id);
-	List<Post> search(UserRole role, String query);
+	List<Post> search(UserRole role, String query, int currentUserId);
 }

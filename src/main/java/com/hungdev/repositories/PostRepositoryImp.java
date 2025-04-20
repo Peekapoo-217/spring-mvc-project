@@ -136,25 +136,35 @@ public class PostRepositoryImp implements PostRepository {
 						: LocalDateTime.now());
 	}
 
-	@Override
-	public List<Post> search(UserRole role, String query) {
-		String selectPart = "SELECT * FROM posts";
-		String searchConditionPart = "title like '%" + query + "%'";
-		String roleConditionPart = "status <> 'DRAFTED'";
-		String finalQuery = selectPart + " WHERE " + searchConditionPart;
+	public List<Post> search(UserRole role, String query, int currentUserId) {
+		String finalQuery = "SELECT p.* FROM posts p " + "JOIN users u ON p.user_id = u.id "
+				+ "LEFT JOIN follows f ON f.follower_id = ? AND f.following_id = u.id "
+				+ "WHERE f.follower_id IS NOT NULL AND (p.title LIKE ? OR u.username LIKE ?)";
+		
 		if (role == UserRole.USER) {
-			finalQuery += " AND " + roleConditionPart;
+			finalQuery += " AND p.status <> 'DRAFTED'";
 		}
-		 List<Post> posts = new ArrayList<>();
-		 try (Connection conn = dataSource.getConnection();
-		         Statement stmt = conn.createStatement();
-		         ResultSet rs = stmt.executeQuery(finalQuery)) {
-		        while (rs.next()) {
-		            posts.add(mapPost(rs));
-		        }
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    }
-		    return posts;
+
+		List<Post> posts = new ArrayList<>();
+		try (Connection conn = dataSource.getConnection(); PreparedStatement stmt = conn.prepareStatement(finalQuery)) {
+
+			String likeQuery = "%" + query + "%";
+			stmt.setInt(1, currentUserId); // f.follower_id
+			stmt.setString(2, likeQuery); // p.title
+			stmt.setString(3, likeQuery); // u.username
+			stmt.setString(4, likeQuery); // fallback: match username
+
+			try (ResultSet rs = stmt.executeQuery()) {
+				while (rs.next()) {
+					posts.add(mapPost(rs));
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return posts;
 	}
+
 }
