@@ -103,8 +103,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`, `created_at`) VALUES
 (2, 'caubelauga', '$2a$10$ZYmp6NRHdYnv/RURBCF66eumfJ4EyHOtTFbR7XgqAMy06kz6c.3c.', 'USER', '2025-03-19 08:29:18'),
 (3, 'danh', '$2a$10$FKy4kPCyfbVSf7JuhwailOpPEZQ1x2k2NVnaVn.eLQeZYHkWfiJqS', 'USER', '2025-03-19 08:47:19'),
 (4, 'hongnhung', '$2a$10$NQA4RtDRKuXIo7h4IFv0n.oM/.fjSC7sxYc/rdn9wDeVpcCRkNzxu', 'USER', '2025-03-19 09:02:03'),
-(5, 'huynh', '$2a$10$DjmahA55GGgXaaQMpcaP/OG3SF2lPjWkfydJJUhPm3/GewFA.jdN2', 'USER', '2025-03-19 09:02:10'),
-(6, 'user', '123', 'USER', '2025-04-14 12:23:35');
+(5, 'huynh', '$2a$10$DjmahA55GGgXaaQMpcaP/OG3SF2lPjWkfydJJUhPm3/GewFA.jdN2', 'USER', '2025-03-19 09:02:10');
 
 --
 -- Indexes for dumped tables
