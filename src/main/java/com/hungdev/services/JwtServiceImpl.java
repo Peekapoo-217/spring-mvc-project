@@ -45,11 +45,11 @@ public class JwtServiceImpl implements JwtService {
 		claims.put("userId", ((User) userDetails).getId());
 		
 		return Jwts.builder()
+				.signWith(secretKey) //Signature
 				.claims(claims)
 				.subject(userDetails.getUsername())
 				.issuedAt(new Date(System.currentTimeMillis()))
 				.expiration(new Date(System.currentTimeMillis() + jwtConfig.getExpirationTime()))
-				.signWith(secretKey)
 				.compact();
 	}
 
