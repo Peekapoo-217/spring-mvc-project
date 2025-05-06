@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 20, 2025 at 08:44 AM
+-- Generation Time: May 06, 2025 at 02:33 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -40,8 +40,7 @@ CREATE TABLE `follows` (
 INSERT INTO `follows` (`follower_id`, `following_id`, `created_at`) VALUES
 (1, 1, '2025-03-19 08:33:04'),
 (2, 1, '2025-04-20 07:49:52'),
-(2, 5, '2025-04-20 07:49:22'),
-(2, 6, '2025-04-20 07:49:23');
+(2, 5, '2025-04-20 07:49:22');
 
 -- --------------------------------------------------------
 
@@ -78,7 +77,9 @@ INSERT INTO `posts` (`id`, `title`, `body`, `user_id`, `status`, `created_at`) V
 (13, 'Lập trình Web cơ bản', 'Giới thiệu các bước xây dựng một website đơn giản bằng HTML, CSS.', 4, 'POSTED', '2025-04-20 08:03:43'),
 (14, 'Tự học tiếng Anh giao tiếp', 'Các mẹo đơn giản giúp bạn luyện tiếng Anh mỗi ngày.', 4, 'POSTED', '2025-04-20 08:03:43'),
 (15, 'Sống xanh mỗi ngày', 'Gợi ý những hành động nhỏ giúp bảo vệ môi trường.', 4, 'POSTED', '2025-04-20 08:03:43'),
-(16, 'Phân biệt AI và Machine Learning', 'Giải thích ngắn gọn sự khác nhau giữa trí tuệ nhân tạo và học máy.', 4, 'POSTED', '2025-04-20 08:03:43');
+(16, 'Phân biệt AI và Machine Learning', 'Giải thích ngắn gọn sự khác nhau giữa trí tuệ nhân tạo và học máy.', 4, 'POSTED', '2025-04-20 08:03:43'),
+(20, 'bet88', 'Quà tặng cột sống', 1, 'POSTED', '2025-04-26 16:04:12'),
+(21, 'aydo', '123', 1, 'POSTED', '2025-05-06 14:12:40');
 
 -- --------------------------------------------------------
 
@@ -138,13 +139,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

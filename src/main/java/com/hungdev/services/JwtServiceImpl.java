@@ -1,3 +1,4 @@
+
 package com.hungdev.services;
 
 import java.util.Date;
@@ -26,40 +27,32 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtServiceImpl implements JwtService {
 	private JwtConfig jwtConfig;
-	
+
 	private SecretKey secretKey;
-	
+
 	@Autowired
 	public JwtServiceImpl(JwtConfig jwtConfig) {
 		this.jwtConfig = jwtConfig;
-		
+
 		secretKey = Keys.hmacShaKeyFor(jwtConfig.getSecretKey().getBytes());
 	}
-	
+
 	@Override
 	public String generateToken(UserDetails userDetails) {
-		List<String> authorities = userDetails.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+		List<String> authorities = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+				.collect(Collectors.toList());
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("Authorities", authorities);
 		claims.put("userId", ((User) userDetails).getId());
-		
-		return Jwts.builder()
-				.signWith(secretKey) //Signature
-				.claims(claims)
-				.subject(userDetails.getUsername())
-				.issuedAt(new Date(System.currentTimeMillis()))
-				.expiration(new Date(System.currentTimeMillis() + jwtConfig.getExpirationTime()))
-				.compact();
+
+		return Jwts.builder().signWith(secretKey) // Signature .claims(claims)
+				.subject(userDetails.getUsername()).issuedAt(new Date(System.currentTimeMillis()))
+				.expiration(new Date(System.currentTimeMillis() + jwtConfig.getExpirationTime())).compact();
 	}
 
 	@Override
 	public String extractUsernameFromToken(String token) {
-		Claims claims = Jwts.parser()
-				.verifyWith(secretKey)
-				.build()
-				.parseSignedClaims(token)
-				.getPayload();
+		Claims claims = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload();
 
 		return claims.getSubject();
 	}
@@ -67,30 +60,18 @@ public class JwtServiceImpl implements JwtService {
 	@Override
 	public boolean validateToken(String token) {
 		try {
-			Jwts
-			.parser()
-			.verifyWith(secretKey)
-			.build()
-			.parseSignedClaims(token);
+			Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
 			return true;
-		} catch (MalformedJwtException | 
-				ExpiredJwtException | 
-				UnsupportedJwtException | 
-				IllegalArgumentException ex) {
+		} catch (MalformedJwtException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
 			return false;
 		}
 	}
 
 	@Override
 	public List<String> extractAuthoritiesFromToken(String token) {
-		Claims claims = (Claims) Jwts.parser()
-				.verifyWith(secretKey)
-				.build()
-				.parseSignedClaims(token);
-        List<?> rawAuthorities =  claims.get("Authorities", List.class);
-        return rawAuthorities.stream()
-        		.map(Object::toString)
-        		.collect(Collectors.toList());
+		Claims claims = (Claims) Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
+		List<?> rawAuthorities = claims.get("Authorities", List.class);
+		return rawAuthorities.stream().map(Object::toString).collect(Collectors.toList());
 	}
 
 }

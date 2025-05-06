@@ -11,13 +11,13 @@ import com.hungdev.configs.DatabaseConfig;
 import com.hungdev.entities.User;
 
 import com.hungdev.repositories.UserRepositoryImp;
+import com.hungdev.services.JwtService;
 import com.hungdev.services.UserService;
 
 @ApplicationScope
 public class Main {
 
 	public static void main(String[] args) {
-
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DatabaseConfig.class);
 
 		DatabaseConfig dbConfig = context.getBean(DatabaseConfig.class);
