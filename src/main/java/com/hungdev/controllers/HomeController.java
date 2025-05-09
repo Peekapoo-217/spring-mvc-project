@@ -53,9 +53,9 @@ public class HomeController {
 		if (!keyword.equals("")) {
 
 			if (role.equals("ROLE_ADMIN")) {
-				posts = postService.searchPost(UserRole.ADMIN, keyword, userId);
+				posts = postService.searchPost(UserRole.ROLE_ADMIN, keyword, userId);
 			} else {
-				posts = postService.searchPost(UserRole.USER, keyword, userId);
+				posts = postService.searchPost(UserRole.ROLE_USER, keyword, userId);
 			}
 		} else {
 			posts = postService.findPagedNewestByFollowings(userId, pageIndex, pageSize);
@@ -81,9 +81,9 @@ public class HomeController {
 		List<Post> posts;
 
 		if (role.equals("ROLE_ADMIN")) {
-			posts = postService.searchPost(UserRole.ADMIN, keyword, userId);
+			posts = postService.searchPost(UserRole.ROLE_ADMIN, keyword, userId);
 		} else {
-			posts = postService.searchPost(UserRole.USER, keyword, userId);
+			posts = postService.searchPost(UserRole.ROLE_USER, keyword, userId);
 		}
 
 		List<User> users = userService.findPaged(0, 10, userId);

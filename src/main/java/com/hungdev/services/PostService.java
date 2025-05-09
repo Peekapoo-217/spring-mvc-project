@@ -16,6 +16,10 @@ public class PostService {
 		this.postRepository = postRepository;
 	}
 
+	public List<Post> findAll() {
+	    return postRepository.findAll();
+	}
+
 	public List<Post> findPagedNewestByFollowings(int userId, int pageIndex, int pageSize) {
 		return postRepository.findPagedNewestByFollowings(userId, pageIndex, pageSize);
 	}

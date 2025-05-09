@@ -31,6 +31,25 @@ public class PostRepositoryImp implements PostRepository {
 	public PostRepositoryImp(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
+	
+	@Override
+	public List<Post> findAll() {
+	    List<Post> posts = new ArrayList<>();
+	    String sql = "SELECT * FROM posts ORDER BY created_at DESC";
+
+	    try (Connection conn = dataSource.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql);
+	         ResultSet rs = pstmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            posts.add(mapPost(rs));
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return posts;
+	}
 
 	@Override
 	public List<Post> findPagedNewestByFollowings(int userId, int pageIndex, int pageSize) {
@@ -141,7 +160,7 @@ public class PostRepositoryImp implements PostRepository {
 				+ "LEFT JOIN follows f ON f.follower_id = ? AND f.following_id = u.id "
 				+ "WHERE f.follower_id IS NOT NULL AND (p.title LIKE ? OR u.username LIKE ?)";
 		
-		if (role == UserRole.USER) {
+		if (role == UserRole.ROLE_USER) {
 			finalQuery += " AND p.status <> 'DRAFTED'";
 		}
 

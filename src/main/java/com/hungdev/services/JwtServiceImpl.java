@@ -39,14 +39,16 @@ public class JwtServiceImpl implements JwtService {
 
 	@Override
 	public String generateToken(UserDetails userDetails) {
+
 		List<String> authorities = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
 				.collect(Collectors.toList());
+
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("Authorities", authorities);
 		claims.put("userId", ((User) userDetails).getId());
 
-		return Jwts.builder().signWith(secretKey) // Signature .claims(claims)
-				.subject(userDetails.getUsername()).issuedAt(new Date(System.currentTimeMillis()))
+		return Jwts.builder().signWith(secretKey).claims(claims).subject(userDetails.getUsername())
+				.issuedAt(new Date(System.currentTimeMillis()))
 				.expiration(new Date(System.currentTimeMillis() + jwtConfig.getExpirationTime())).compact();
 	}
 
@@ -66,12 +68,21 @@ public class JwtServiceImpl implements JwtService {
 			return false;
 		}
 	}
-
+	
 	@Override
 	public List<String> extractAuthoritiesFromToken(String token) {
-		Claims claims = (Claims) Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
+		Claims claims = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload();
+
 		List<?> rawAuthorities = claims.get("Authorities", List.class);
-		return rawAuthorities.stream().map(Object::toString).collect(Collectors.toList());
+
+		if (rawAuthorities == null) {
+			return List.of();
+		}
+
+		return rawAuthorities.stream()
+			    .map(Object::toString)
+			    .collect(Collectors.toList());
+
 	}
 
 }

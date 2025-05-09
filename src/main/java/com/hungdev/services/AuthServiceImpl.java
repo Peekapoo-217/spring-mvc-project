@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
 		String username = signUpRequest.getUsername();
 
 		User user = new User(username, encodedPassword);
-		user.setRole(UserRole.USER);
+		user.setRole(UserRole.ROLE_USER);
 		userRepository.save(user);
 	}
 }

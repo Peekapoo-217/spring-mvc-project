@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 06, 2025 at 02:33 PM
+-- Generation Time: May 09, 2025 at 01:37 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -91,7 +91,7 @@ CREATE TABLE `users` (
   `id` int NOT NULL,
   `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `role` enum('ADMIN','USER') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'USER',
+  `role` enum('ROLE_ADMIN','ROLE_USER') COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -100,11 +100,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`, `created_at`) VALUES
-(1, 'hungdev', '$2a$10$YRV.XpuGOVNgNKwOK/G5ieniDj0NHDsv8k9SBrRgrtbjgsKUov3B6', 'ADMIN', '2025-03-19 08:28:54'),
-(2, 'caubelauga', '$2a$10$ZYmp6NRHdYnv/RURBCF66eumfJ4EyHOtTFbR7XgqAMy06kz6c.3c.', 'USER', '2025-03-19 08:29:18'),
-(3, 'danh', '$2a$10$FKy4kPCyfbVSf7JuhwailOpPEZQ1x2k2NVnaVn.eLQeZYHkWfiJqS', 'USER', '2025-03-19 08:47:19'),
-(4, 'hongnhung', '$2a$10$NQA4RtDRKuXIo7h4IFv0n.oM/.fjSC7sxYc/rdn9wDeVpcCRkNzxu', 'USER', '2025-03-19 09:02:03'),
-(5, 'huynh', '$2a$10$DjmahA55GGgXaaQMpcaP/OG3SF2lPjWkfydJJUhPm3/GewFA.jdN2', 'USER', '2025-03-19 09:02:10');
+(1, 'hungdev', '$2a$10$YRV.XpuGOVNgNKwOK/G5ieniDj0NHDsv8k9SBrRgrtbjgsKUov3B6', 'ROLE_ADMIN', '2025-03-19 08:28:54'),
+(2, 'caubelauga', '$2a$10$ZYmp6NRHdYnv/RURBCF66eumfJ4EyHOtTFbR7XgqAMy06kz6c.3c.', 'ROLE_USER', '2025-03-19 08:29:18'),
+(3, 'danh', '$2a$10$FKy4kPCyfbVSf7JuhwailOpPEZQ1x2k2NVnaVn.eLQeZYHkWfiJqS', 'ROLE_USER', '2025-03-19 08:47:19'),
+(4, 'hongnhung', '$2a$10$NQA4RtDRKuXIo7h4IFv0n.oM/.fjSC7sxYc/rdn9wDeVpcCRkNzxu', 'ROLE_USER', '2025-03-19 09:02:03'),
+(5, 'huynh', '$2a$10$DjmahA55GGgXaaQMpcaP/OG3SF2lPjWkfydJJUhPm3/GewFA.jdN2', 'ROLE_USER', '2025-03-19 09:02:10');
 
 --
 -- Indexes for dumped tables
