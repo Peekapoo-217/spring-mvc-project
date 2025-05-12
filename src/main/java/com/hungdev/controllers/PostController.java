@@ -48,21 +48,20 @@ public class PostController {
 	@GetMapping("/admin")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String managePostsForAdmin(Model model) {
-		 
-		  if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().
-		  stream() .noneMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))) {
-		  return "error/403"; }
-		 
-		
+
+		if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+				.noneMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))) {
+			return "error/403";
+		}
+
 		List<Post> posts = postService.findAll();
 		model.addAttribute("posts", posts);
 		return "admin/postmanagement";
 	}
-	
+
 	@GetMapping("/403")
 	public String accessDenied() {
-	    return "error/403";
+		return "error/403";
 	}
-
 
 }
